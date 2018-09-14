@@ -42,9 +42,9 @@ async def on_command_error(ctx, error):
 
 @bot.event
 async def on_voice_state_update(member, before, after):
-	if after.channel is not None and after.channel.id == BIG_BRAIN_ID:
+	if after.channel is not None and after.channel.id == BIG_BRAIN_ID and (before.channel is None or not before.channel.id == BIG_BRAIN_ID):
 		await add_big_text_role(member)
-	else:
+	elif after.channel is None or not after.channel.id == BIG_BRAIN_ID:
 		await remove_big_text_role(member)
 
 async def remove_big_text_role(user):
