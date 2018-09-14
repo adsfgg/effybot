@@ -11,7 +11,6 @@ import sys, traceback
 with open("token.txt") as f:
 	TOKEN = f.readlines()[0].replace("\n", "")
 
-print(TOKEN)
 ASDF_ID = "134781032086896641"
 BIG_BRAIN_ID = 421464243339001860
 BOT_ERRORS_ID = 482931487767920640
