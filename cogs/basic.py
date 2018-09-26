@@ -20,7 +20,14 @@ class Basic:
 			self.thinking_lines.append(line)
 
 		think_file.close()
-	
+
+	@commands.command()
+	async def brexit(self, ctx):
+		'''
+		STRONG AND STABLE
+		'''
+		await ctx.send("https://cdn.discordapp.com/attachments/421464243339001858/494543569340858368/q6att06f0fo11.png")	
+
 	@commands.command()
 	async def daddy2(self, ctx):
 		'''
