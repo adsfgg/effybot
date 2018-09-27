@@ -20,6 +20,17 @@ class Basic:
 			self.thinking_lines.append(line)
 
 		think_file.close()
+	
+	@commands.command(hidden=True)
+	async def bauerthink(self, ctx):
+		await ctx.send("bauerthinkins bauerthinkins bauerthinkins bauerthinkins", tts=True)
+
+	@commands.command()
+	async def star2(self, ctx):
+		'''
+		SOFT LOLI
+		'''
+		await ctx.send("https://www.youtube.com/watch?v=SGF_iTLdw4U")
 
 	@commands.command()
 	async def star(self, ctx):
