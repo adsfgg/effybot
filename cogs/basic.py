@@ -22,6 +22,14 @@ class Basic:
 		think_file.close()
 
 	@commands.command()
+	async def star(self, ctx):
+		'''
+		BUILD THE WALL
+		'''
+		
+		await ctx.send("https://cdn.discordapp.com/attachments/463778061469351946/494876366861369354/JYgRGsOZNPUHLd6PEUUzL8WGULVESH4gd4kAfgjLXtM.png")
+
+	@commands.command()
 	async def brexit(self, ctx):
 		'''
 		STRONG AND STABLE
