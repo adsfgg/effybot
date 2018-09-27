@@ -20,6 +20,10 @@ class Basic:
 			self.thinking_lines.append(line)
 
 		think_file.close()
+
+	@commands.command(hidden=True)
+	async def kmac(self, ctx):
+		await ctx.send("https://cdn.discordapp.com/attachments/482716342244605952/494917661222764568/7k3l287nbqo11.png")
 	
 	@commands.command(hidden=True)
 	async def bauerthink(self, ctx):
