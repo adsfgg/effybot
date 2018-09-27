@@ -213,7 +213,7 @@ class Basic:
 						break
 
 			if match == None:
-				msg = f"\"{name}\" not found :sob:"
+				msg = f"Couldn't thank \"{name}\" because I couldn't find them :sob:"
 			else:
 				msg=msg.format(match)
 
