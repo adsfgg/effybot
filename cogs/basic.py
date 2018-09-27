@@ -105,7 +105,7 @@ class Basic:
 	@commands.command()
 	async def days(self, ctx):
 		'''
-		summon der König :blush:
+		summon der König 😊
 		'''
 
 		await ctx.send("It's day and <@{0}>!".format(NIGHTS_ID))
