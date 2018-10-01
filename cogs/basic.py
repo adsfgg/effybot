@@ -10,16 +10,18 @@ big_think_limit = 3
 class Basic:
 
 	thinking_lines = []
+	springu_lines = []
 
 	def __init__(self, bot):
 		self.bot = bot
 
-		think_file = open("res/thinking_lines.txt")
+		with open("res/thinking_lines.txt") as f:
+			for line in f:
+				self.thinking_lines.append(line)
 
-		for line in think_file:
-			self.thinking_lines.append(line)
-
-		think_file.close()
+		with open("res/springu_lines.txt") as f:
+			for line in f:
+				self.springu_lines.append(line)
 
 	@commands.command(hidden=True)
 	async def kmac(self, ctx):
@@ -103,8 +105,25 @@ class Basic:
 		await ctx.send("OCEAN MAN :ocean: :heart_eyes: Take me by the hand :raised_hand: lead me to the land that you understand :raised_hands: :ocean: OCEAN MAN :ocean: :heart_eyes: The voyage :bike: to the corner of the :earth_americas: globe is a real trip :ok_hand: :ocean: OCEAN MAN :ocean: :heart_eyes: The crust of a tan man :man_with_turban: imbibed by the sand :thumbsup: Soaking up the :sweat_drops: thirst of the land :100:")
 
 	@commands.command()
-	async def springu(self, ctx):
-		await ctx.send("https://cdn.discordapp.com/attachments/421464243339001858/488837643870797825/2222888.jpg")
+	async def springu(self, ctx, *, index : int = None):
+		'''
+		SPAM THIS NOODLE TO HELP SPRINGDOOLE
+		'''
+
+		length = len(self.springu_lines) - 1
+		
+		if index == None:
+			num = random.randint(0, length)
+		else:
+			num = index
+
+		if num > length or num < 0:
+			return await ctx.send("Index must be between 0 and {0}".format(length))
+
+		msg = self.springu_lines[num]
+		
+		await ctx.send(msg)
+
 
 	@commands.command()
 	async def days(self, ctx):
