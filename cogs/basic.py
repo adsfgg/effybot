@@ -6,6 +6,7 @@ KMAC_ID = "206283655159480320"
 NIGHTS_ID = "153153882355138560"
 ASDF_ID = "134781032086896641"
 big_think_limit = 3
+big_springu_limit = 3
 
 class Basic:
 
@@ -75,6 +76,28 @@ class Basic:
 
 	@commands.command(hidden=True)
 	@commands.is_owner()
+	async def bigspringulimit(self, ctx, *, limit : int):
+		if limit <= 0:
+			msg = discord.Embed(title="Set Limit", description=limit, color=0x00FF00)
+			msg.add_field(name="Status", value=":x:Error", inline=False)
+			msg.add_field(name="Error", value="Limit cannot be less than 0", inline=False)
+			await ctx.send(embed=msg)
+
+		try:
+			global big_springu_limit
+			big_springu_limit = limit
+		except Exception as e:
+			msg = discord.Embed(title="Set Limit", description=limit, color=0x00FF00)
+			msg.add_field(name="Status", value=":x:Error", inline=False)
+			msg.add_field(name="Error", value=e, inline=False)
+			await ctx.send(embed=msg)
+		else:
+			msg = discord.Embed(title="Set Limit", description=limit, color=0x00FF00)
+			msg.add_field(name="Status", value=":white_check_mark:Success", inline=False)
+			await ctx.send(embed=msg)
+
+	@commands.command(hidden=True)
+	@commands.is_owner()
 	async def bigthinklimit(self, ctx, *, limit : int):
 		if limit <= 0:
 			msg = discord.Embed(title="Set Limit", description=limit, color=0x00FF00)
@@ -124,6 +147,13 @@ class Basic:
 		
 		await ctx.send(msg)
 
+	@commands.command(hidden=True)
+	async def bigspringu(self, ctx):	
+		for i in range(big_springu_limit):
+			num = random.randint(0, len(self.springu_lines) - 1)
+
+			msg = self.springu_lines[num]
+			await ctx.send(msg)
 
 	@commands.command()
 	async def days(self, ctx):
