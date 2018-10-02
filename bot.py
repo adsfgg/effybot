@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import logging
 
-logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s', datefmt='%Y-%m-%d %H:%M:%S', filename='/home/asdf/Dev/DiscordBot/log.txt', level=logging.INFO)
+#logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s', datefmt='%Y-%m-%d %H:%M:%S', filename='/home/asdf/Dev/DiscordBot/log.txt', level=logging.INFO)
 logging.info("starting discordbot")
 
 import discord
@@ -43,27 +43,27 @@ async def on_command_error(ctx, error):
 @bot.event
 async def on_voice_state_update(member, before, after):
 	if after.channel is not None and after.channel.id == BIG_BRAIN_ID and (before.channel is None or not before.channel.id == BIG_BRAIN_ID):
-		await add_big_text_role(member)
+		await add_to_text(member)
 	elif after.channel is None or not after.channel.id == BIG_BRAIN_ID:
-		await remove_big_text_role(member)
+		await remove_from_text(member)
 
-async def remove_big_text_role(user):
+async def remove_from_text(user):
 	logging.info(f"{user} left big brains, removing perms")
+	
+	channel = discord.utils.get(user.guild.channels, name="big-text")
 
-	role = discord.utils.get(user.guild.roles, name="big-text")
+	logging.debug(channel)
 
-	logging.debug(role)
+	await channel.set_permissions(user, read_messages=False)
 
-	await user.remove_roles(role)
-
-async def add_big_text_role(user):
+async def add_to_text(user):
 	logging.info(f"{user} joined big brains, adding perms")
 
-	role = discord.utils.get(user.guild.roles, name="big-text")
+	channel = discord.utils.get(user.guild.channels, name="big-text")	
 
-	logging.debug(role)
+	logging.debug(channel)
 
-	await user.add_roles(role)
+	await channel.set_permissions(user, read_messages=True)
 
 @bot.event
 async def on_ready():
