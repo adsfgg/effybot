@@ -130,7 +130,7 @@ class Basic:
 	@commands.command()
 	async def springu(self, ctx, *, index : int = None):
 		'''
-		SPAM THIS NOODLE TO HELP SPRINGDOOLE
+		breadstick
 		'''
 
 		length = len(self.springu_lines) - 1
