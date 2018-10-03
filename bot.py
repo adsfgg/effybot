@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import logging
 
-logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s', datefmt='%Y-%m-%d %H:%M:%S', filename='/home/asdf/Dev/DiscordBot/log.txt', level=logging.INFO)
+logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s', datefmt='%Y-%m-%d %H:%M:%S', filename='log.txt', level=logging.INFO)
 logging.info("starting discordbot")
 
 import discord
