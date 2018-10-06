@@ -13,15 +13,15 @@ fh = logging.FileHandler("log.txt")
 fh.setLevel(logging_level)
 
 #console log
-#ch = logging.StreamHandler()
-#ch.setLevel(logging_level)
+ch = logging.StreamHandler()
+ch.setLevel(logging_level)
 
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 fh.setFormatter(formatter)
-#ch.setFormatter(formatter)
+ch.setFormatter(formatter)
 
 logger.addHandler(fh)
-#logger.addHandler(ch)
+logger.addHandler(ch)
 
 logger.info("Logging setup successfully")
 logger.info("Starting discordbot")
@@ -38,7 +38,11 @@ BIG_BRAIN_ID = 421464243339001860
 BOT_ERRORS_ID = 482931487767920640
 PREFIX = "!"
 
-initial_extensions = ['cogs.owner', 'cogs.general', 'cogs.games', 'cogs.tts', 'cogs.links', 'cogs.copypasta', 'cogs.picturelists']
+initial_extensions = []
+
+with open("initial_extensions.txt") as f:
+	for line in f:
+		initial_extensions.append(line[:-1]) #strip newline
 
 bot = commands.Bot(command_prefix=PREFIX)
 
@@ -102,6 +106,7 @@ def main():
 
 		except ModuleNotFoundError as e:
 			logger.warning(f'Failed to load extension {extension}.')
+			logger.debug(e)
 
 	owner = bot.get_cog("Owner")
 	if owner != None:

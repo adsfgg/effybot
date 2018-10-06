@@ -4,13 +4,16 @@ import logging
 
 class Owner:
 
-	initial_extensions = []
-	logger = None
-
 	def __init__(self, bot):
 		self.bot = bot
 		self.logger = logging.getLogger('Discord_Bot.Owner')
-	
+
+		self.initial_extensions = []		
+		
+		with open("initial_extensions.txt") as f:
+			for line in f:
+				self.initial_extensions.append(line[:-1])	
+
 	@commands.command(name='load')
 	@commands.is_owner()
 	async def cog_load(self, ctx, *, cog: str):
@@ -23,7 +26,7 @@ class Owner:
 		try:
 			self.bot.load_extension(cog)
 		except Exception as e:
-			self.logger.info(f"Failed to load cog: {cog}")
+			self.logger.warning(f"Failed to load cog: {cog}")
 			self.logger.debug(e)
 
 			msg = discord.Embed(title="Load Extension", description=cog, color=0xFF0000)
@@ -76,7 +79,7 @@ class Owner:
 			self.bot.unload_extension(cog)
 			self.bot.load_extension(cog)
 		except Exception as e:
-			self.logger.info(f"Failed to reload cog: {cog}")
+			self.logger.warning(f"Failed to reload cog: {cog}")
 			self.logger.debug(e)
 
 			msg = discord.Embed(title="Reload Extension", description=cog, color=0xFF0000)
@@ -106,7 +109,7 @@ class Owner:
 				self.logger.warning(f'Failed to load extension {extension}.')
 				msg = discord.Embed(title="Failed to load extension", description=extension, color=0xFF0000)
 
-		msg = discord.Embed(title="Reset", color=0x00FF00)
+		msg = discord.Embed(title="Reset", description=f"Reset {len(self.initial_extensions)} modules", color=0x00FF00)
 		msg.add_field(name="Status", value=":white_check_mark: Success", inline=False)
 		await ctx.send(embed=msg)
 		self.logger.info("Bot reset.")
