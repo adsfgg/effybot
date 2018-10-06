@@ -10,9 +10,13 @@ class Owner:
 
 		self.initial_extensions = []		
 		
+		self.logger.info("Loading initial_extensions...")
+		
 		with open("initial_extensions.txt") as f:
 			for line in f:
 				self.initial_extensions.append(line[:-1])	
+
+		self.logger.info("Loaded.")
 
 	@commands.command(name='load')
 	@commands.is_owner()

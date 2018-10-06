@@ -40,9 +40,13 @@ PREFIX = "!"
 
 initial_extensions = []
 
+logger.info("Loading initial_extensions...")
+
 with open("initial_extensions.txt") as f:
 	for line in f:
 		initial_extensions.append(line[:-1]) #strip newline
+
+logger.info("Loaded.")
 
 bot = commands.Bot(command_prefix=PREFIX)
 
