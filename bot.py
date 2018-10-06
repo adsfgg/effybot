@@ -108,13 +108,7 @@ def main():
 			logger.warning(f'Failed to load extension {extension}.')
 			logger.debug(e)
 
-	owner = bot.get_cog("Owner")
-	if owner != None:
-		owner.initial_extensions = initial_extensions
-	else:
-		logger.warning("Cog Owner not found")
-
-	logger.info("starting bot")
+	logger.info("Starting bot")
 
 	bot.run(TOKEN)
 
