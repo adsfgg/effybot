@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 print("Starting discordbot...")
 
-import logging
+import logging,sys
+
+use_console_logging = True
+
+if len(sys.argv) == 2:
+	if sys.argv[1] == "--no_console":
+		use_console_logging = False
 
 logging_level = logging.DEBUG
 
@@ -12,23 +18,25 @@ logger.setLevel(logging_level)
 fh = logging.FileHandler("log.txt")
 fh.setLevel(logging_level)
 
-#console log
-ch = logging.StreamHandler()
-ch.setLevel(logging_level)
-
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+#console log
+if use_console_logging:
+	ch = logging.StreamHandler()
+	ch.setLevel(logging_level)
+	ch.setFormatter(formatter)
+	logger.addHandler(ch)
+
 fh.setFormatter(formatter)
-ch.setFormatter(formatter)
 
 logger.addHandler(fh)
-logger.addHandler(ch)
 
 logger.info("Logging setup successfully")
 logger.info("Starting discordbot")
 
 import discord
 from discord.ext import commands
-import sys, traceback
+import traceback
 
 with open("token.txt") as f:
 	TOKEN = f.readlines()[0].replace("\n", "")
