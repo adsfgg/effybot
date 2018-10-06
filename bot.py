@@ -1,8 +1,30 @@
 #!/usr/bin/env python3
+print("Starting discordbot...")
+
 import logging
 
-logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s', datefmt='%Y-%m-%d %H:%M:%S', filename='log.txt', level=logging.INFO)
-logging.info("starting discordbot")
+logging_level = logging.DEBUG
+
+logger = logging.getLogger("Discord_Bot")
+logger.setLevel(logging_level)
+
+#log file
+fh = logging.FileHandler("log.txt")
+fh.setLevel(logging_level)
+
+#console log
+#ch = logging.StreamHandler()
+#ch.setLevel(logging_level)
+
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+#ch.setFormatter(formatter)
+
+logger.addHandler(fh)
+#logger.addHandler(ch)
+
+logger.info("Logging setup successfully")
+logger.info("Starting discordbot")
 
 import discord
 from discord.ext import commands
@@ -16,7 +38,7 @@ BIG_BRAIN_ID = 421464243339001860
 BOT_ERRORS_ID = 482931487767920640
 PREFIX = "!"
 
-initial_extensions = ['cogs.test', 'cogs.basic', 'cogs.owner', 'cogs.games']
+initial_extensions = ['cogs.owner', 'cogs.general', 'cogs.games', 'cogs.tts', 'cogs.links', 'cogs.copypasta', 'cogs.picturelists']
 
 bot = commands.Bot(command_prefix=PREFIX)
 
@@ -38,7 +60,7 @@ async def on_command_error(ctx, error):
 	msg.add_field(name="Command", value=ctx.message.content, inline=False)
 	msg.add_field(name="Error", value=error, inline=False)
 	await channel.send(content=f"<@{ASDF_ID}>", embed=msg)
-	logging.debug(error)
+	logger.debug(error)
 
 @bot.event
 async def on_voice_state_update(member, before, after):
@@ -48,39 +70,46 @@ async def on_voice_state_update(member, before, after):
 		await remove_from_text(member)
 
 async def remove_from_text(user):
-	logging.info(f"{user} left big brains, removing perms")
+	logger.info(f"{user} left big brains, removing perms")
 	
 	channel = discord.utils.get(user.guild.channels, name="big-text")
 
-	logging.debug(channel)
+	logger.debug(channel)
 
 	await channel.set_permissions(user, read_messages=False)
 
 async def add_to_text(user):
-	logging.info(f"{user} joined big brains, adding perms")
+	logger.info(f"{user} joined big brains, adding perms")
 
 	channel = discord.utils.get(user.guild.channels, name="big-text")	
 
-	logging.debug(channel)
+	logger.debug(channel)
 
 	await channel.set_permissions(user, read_messages=True)
 
 @bot.event
 async def on_ready():
-	logging.info("Logged in as {0.name} ({0.id})".format(bot.user))
+	logger.info("Logged in as {0.name} ({0.id})".format(bot.user))
 	await bot.change_presence(activity=discord.Game(name="0w0 what's this"))
 
 def main():
-	logging.info("loading extensions")
+	logger.info("loading extensions")
 
 	for extension in initial_extensions:
 		try:
 			bot.load_extension(extension)
-			logging.info(f'Loaded extension {extension}.')
-		except ModuleNotFoundError as e:
-			logging.warning(f'Failed to load extension {extension}.')
+			logger.info(f'Loaded extension {extension}.')
 
-	logging.info("starting bot")
+		except ModuleNotFoundError as e:
+			logger.warning(f'Failed to load extension {extension}.')
+
+	owner = bot.get_cog("Owner")
+	if owner != None:
+		owner.initial_extensions = initial_extensions
+	else:
+		logger.warning("Cog Owner not found")
+
+	logger.info("starting bot")
 
 	bot.run(TOKEN)
 
