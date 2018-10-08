@@ -1,1 +1,5 @@
 token.txt
+__pycache__/
+cogs/__pycache__/
+log.txt
+
