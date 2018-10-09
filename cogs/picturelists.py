@@ -1,11 +1,14 @@
 import discord
 from discord.ext import commands
-import logging
+import logging, random
 
 class PictureLists:
 
 	thinking_lines = []
 	springu_lines = []
+	big_springu_limit = 3
+	big_think_limit = 3
+
 	
 	def __init__(self, bot):
 		self.bot = bot
@@ -52,7 +55,7 @@ class PictureLists:
 		really big breadstick
 		'''
 
-		for i in range(big_springu_limit):
+		for i in range(self.big_springu_limit):
 			num = random.randint(0, len(self.springu_lines) - 1)
 
 			msg = self.springu_lines[num]
@@ -68,8 +71,7 @@ class PictureLists:
 			await ctx.send(embed=msg)
 
 		try:
-			global big_springu_limit
-			big_springu_limit = limit
+			self.big_springu_limit = limit
 		except Exception as e:
 			msg = discord.Embed(title="Set Limit", description=limit, color=0x00FF00)
 			msg.add_field(name="Status", value=":x:Error", inline=False)
@@ -106,7 +108,7 @@ class PictureLists:
 		Really big think
 		'''
 
-		for i in range(big_think_limit):
+		for i in range(self.big_think_limit):
 			num = random.randint(0, len(self.thinking_lines) - 1)
 
 			msg = self.thinking_lines[num]
@@ -122,9 +124,7 @@ class PictureLists:
 			await ctx.send(embed=msg)
 
 		try:
-			global big_think_limit
-			global think_timeout_limit
-			big_think_limit = limit
+			self.big_think_limit = limit
 		except Exception as e:
 			msg = discord.Embed(title="Set Limit", description=limit, color=0x00FF00)
 			msg.add_field(name="Status", value=":x:Error", inline=False)
