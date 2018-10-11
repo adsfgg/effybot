@@ -6,9 +6,10 @@ class PictureLists:
 
 	thinking_lines = []
 	springu_lines = []
+	boower_lines = []
 	big_springu_limit = 3
 	big_think_limit = 3
-
+	big_boower_limit = 3
 	
 	def __init__(self, bot):
 		self.bot = bot
@@ -28,7 +29,46 @@ class PictureLists:
 				self.springu_lines.append(line)
 
 		self.logger.info("Loaded springu_lines.")
+		self.logger.info("Loading boower_lines...")
+
+		with open("res/boower_lines.txt") as f:
+			for line in f:
+				self.boower_lines.append(line)
+
+		self.logger.info("Loaded springu_lines.")
 			
+	@commands.command()
+	async def boower(self, ctx, *, index : int = None):
+		'''
+		doesnt that cat tongue poison thing paralyse that guy?
+		'''
+	
+		length = len(self.boower_lines) - 1
+
+		if index == None:
+			num = random.randint(0, length)
+		else:
+			num = index
+
+		if num > length or num < 0:
+			return await ctx.send(f"Index must be between 0 and {length}")
+
+		msg = self.boower_lines[num]
+	
+		await ctx.send(msg)
+
+	@commands.command(enabled=False) #disabled for now
+	async def bigboower(self, ctx):
+		'''
+		doesnt that spider bubble air thing drown that guy
+		'''
+
+		for i in range(self.big_boower_limit):
+			num = random.randint(0, len(self.boower_lines) - 1)
+			
+			msg = self.boower_lines[num]
+			await ctx.send(msg)
+
 	@commands.command()
 	async def springu(self, ctx, *, index : int = None):
 		'''
