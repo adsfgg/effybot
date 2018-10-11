@@ -26,8 +26,8 @@ class Games:
 		answer = self.ball_answers[num]
 
 		msg = discord.Embed(description=str(ctx.message.author), color=0x00FF00)
-		msg.add_field(name=":question:Question", value=question, inline=False)
-		msg.add_field(name=":8ball:Answer", value=answer, inline=False)
+		msg.add_field(name=":question: Question", value=question, inline=False)
+		msg.add_field(name=":8ball: Answer", value=answer, inline=False)
 
 		await ctx.send(embed=msg)
 
