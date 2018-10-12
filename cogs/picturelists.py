@@ -35,7 +35,7 @@ class PictureLists:
 			for line in f:
 				self.boower_lines.append(line)
 
-		self.logger.info("Loaded springu_lines.")
+		self.logger.info("Loaded boower_lines.")
 			
 	@commands.command()
 	async def boower(self, ctx, *, index : int = None):

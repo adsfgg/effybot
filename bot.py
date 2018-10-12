@@ -90,16 +90,12 @@ async def remove_from_text(user):
 	
 	channel = discord.utils.get(user.guild.channels, name="big-text")
 
-	logger.debug(channel)
-
 	await channel.set_permissions(user, read_messages=False)
 
 async def add_to_text(user):
 	logger.info(f"{user} joined big brains, adding perms")
 
 	channel = discord.utils.get(user.guild.channels, name="big-text")	
-
-	logger.debug(channel)
 
 	await channel.set_permissions(user, read_messages=True)
 
