@@ -100,6 +100,12 @@ async def add_to_text(user):
 	await channel.set_permissions(user, read_messages=True)
 
 @bot.event
+async def on_message(message):
+	if bot.user.mentioned_in(message) and message.mention_everyone is False:
+		await message.channel.send('My prefix is  "'+PREFIX+'"')
+	await bot.process_commands(message)
+
+@bot.event
 async def on_ready():
 	logger.info("Logged in as {0.name} ({0.id})".format(bot.user))
 	await bot.change_presence(activity=discord.Game(name="0w0 what's this"))
