@@ -63,7 +63,7 @@ async def on_command_error(ctx, error):
 	if isinstance(error, commands.errors.CommandNotFound):
 		return await ctx.send(f"Command not found. Try {PREFIX}help.")
 	elif isinstance(error, commands.errors.MissingRequiredArgument):
-		return await ctx.send(f"Missing required argument. Try !help {ctx.command.name}")
+		return await ctx.send(f"Missing required argument. Try {PREFIX}help {ctx.command.name}")
 	elif isinstance(error, commands.errors.NotOwner):
 		msg = discord.Embed(title=":x:", description="You do not have permission to run this command.", color=0xFF0000)
 		return await ctx.send(embed=msg)
