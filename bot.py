@@ -61,7 +61,7 @@ bot = commands.Bot(command_prefix=PREFIX)
 @bot.event
 async def on_command_error(ctx, error):
 	if isinstance(error, commands.errors.CommandNotFound):
-		return await ctx.send("Command not found. Try !help.")
+		return await ctx.send(f"Command not found. Try {PREFIX}help.")
 	elif isinstance(error, commands.errors.MissingRequiredArgument):
 		return await ctx.send(f"Missing required argument. Try !help {ctx.command.name}")
 	elif isinstance(error, commands.errors.NotOwner):
@@ -101,6 +101,7 @@ async def add_to_text(user):
 
 @bot.event
 async def on_message(message):
+	if message.author.bot: return
 	if bot.user.mentioned_in(message) and message.mention_everyone is False:
 		await message.channel.send(f'{message.author.mention}, my prefix is "{PREFIX}"')
 	await bot.process_commands(message)
