@@ -44,6 +44,7 @@ with open("token.txt") as f:
 ASDF_ID = "134781032086896641"
 BIG_BRAIN_ID = 421464243339001860
 BOT_ERRORS_ID = 482931487767920640
+BOT_CENTRAL_ID = 446243019205640212
 PREFIX = "!"
 
 initial_extensions = []
@@ -106,7 +107,8 @@ async def on_message(message):
 	if message.author.bot: return
 	if bot.user.mentioned_in(message) and message.mention_everyone is False:
 		await message.channel.send(f'{message.author.mention}, my prefix is "{PREFIX}"')
-	await bot.process_commands(message)
+	elif message.channel.id == BOT_CENTRAL_ID:
+		await bot.process_commands(message)
 
 @bot.event
 async def on_ready():
