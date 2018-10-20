@@ -57,7 +57,7 @@ class PictureLists:
 	
 		await ctx.send(msg)
 
-	@commands.command(enabled=False) #disabled for now
+	@commands.command() #disabled for now
 	async def bigboower(self, ctx):
 		'''
 		doesnt that spider bubble air thing drown that guy
