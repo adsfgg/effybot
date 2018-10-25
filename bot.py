@@ -106,7 +106,7 @@ async def add_to_text(user):
 @bot.event
 async def on_message(message):
 	if message.author.bot: return
-	if bot.user.mentioned_in(message) and message.mention_everyone is False:
+	if bot.user.mentioned_in(message) and message.content.startswith(f'<@{bot.user.id}>') and message.mention_everyone is False:
 		await message.channel.send(f'{message.author.mention}, my prefix is "{PREFIX}"')
 	elif message.channel.id == BOT_CENTRAL_ID or message.channel.id == BOT_TESTING_ID:
 		await bot.process_commands(message)
