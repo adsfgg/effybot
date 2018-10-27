@@ -46,6 +46,7 @@ BIG_BRAIN_ID = 421464243339001860
 BOT_ERRORS_ID = 482931487767920640
 BOT_TESTING_ID = 482913139759906836
 BOT_CENTRAL_ID = 446243019205640212
+ALLOWED_CHANNELS_ID = [BOT_TESTING_ID, BOT_CENTRAL_ID]
 PREFIX = "!"
 
 initial_extensions = []
@@ -108,7 +109,7 @@ async def on_message(message):
 	if message.author.bot: return
 	if bot.user.mentioned_in(message) and message.content.startswith(f'<@{bot.user.id}>') and message.mention_everyone is False:
 		await message.channel.send(f'{message.author.mention}, my prefix is "{PREFIX}"')
-	elif message.channel.id == BOT_CENTRAL_ID or message.channel.id == BOT_TESTING_ID:
+	elif message.channel.id in ALLOWED_CHANNELS_ID:
 		await bot.process_commands(message)
 
 @bot.event
