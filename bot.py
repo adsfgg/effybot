@@ -141,7 +141,7 @@ async def process_bot_command(message, command, args):
 
 			for arg in args:
 				if arg not in valid_args:
-					return await ctx.send("Invalid argument. Must be one of {0}".format(valid_args))
+					return await ctx.send("Invalid argument \"{0}\". Must be one of {1}".format(arg,valid_args))
 
 		on_command_func = ctx.command["on_command"]
 
