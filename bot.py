@@ -34,8 +34,10 @@ logger.addHandler(fh)
 logger.info("Logging setup successfully")
 logger.info("Starting discordbot")
 
+logger.info("Loading discord.py")
 import discord
 from discord.ext import commands
+logger.info("Discord.py loaded ({0})".format(discord.__version__))
 import traceback
 
 with open("token.txt") as f:
