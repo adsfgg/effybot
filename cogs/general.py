@@ -10,99 +10,99 @@ big_springu_limit = 3
 
 class General:
 
-	thinking_lines = []
-	springu_lines = []
+  thinking_lines = []
+  springu_lines = []
 
-	def __init__(self, bot):
-		self.bot = bot
+  def __init__(self, bot):
+    self.bot = bot
 
-	@commands.command()
-	async def days(self, ctx):
-		'''
-		summon der König 😊
-		'''
+  @commands.command()
+  async def days(self, ctx):
+    '''
+    summon der König 😊
+    '''
 
-		await ctx.send("It's day and <@{0}>!".format(NIGHTS_ID))
+    await ctx.send("It's day and <@{0}>!".format(NIGHTS_ID))
 
-	@commands.command()
-	async def emo(self, ctx):
-		'''
-		im dead inside
-		'''
+  @commands.command()
+  async def emo(self, ctx):
+    '''
+    im dead inside
+    '''
 
-		await ctx.send("I'm so baaadddd <@{0}> :sob:".format(ASDF_ID))
+    await ctx.send("I'm so baaadddd <@{0}> :sob:".format(ASDF_ID))
 
-	@commands.command()
-	async def jjonak(self, ctx):
-		'''
-		Is there anyone who can stop this man
-		'''
+  @commands.command()
+  async def jjonak(self, ctx):
+    '''
+    Is there anyone who can stop this man
+    '''
 
-		await ctx.send("LITERAL WALKING BRAIN <@{0}>".format(KMAC_ID));
+    await ctx.send("LITERAL WALKING BRAIN <@{0}>".format(KMAC_ID));
 
-	@commands.command()
-	async def hello(self, ctx):
-		'''
-		Say hello!
-		'''
+  @commands.command()
+  async def hello(self, ctx):
+    '''
+    Say hello!
+    '''
 
-		msg = 'Hello {0.author.mention}!'.format(ctx.message)
-		await ctx.send(msg)
+    msg = 'Hello {0.author.mention}!'.format(ctx.message)
+    await ctx.send(msg)
 
 
-	@commands.command(aliases=["regard"])
-	async def thank(self, ctx, *, name:str = None):
-		'''
-		Thank the bot for its unpayed work
-		'''
+  @commands.command(aliases=["regard"])
+  async def thank(self, ctx, *, name:str = None):
+    '''
+    Thank the bot for its unpayed work
+    '''
 
-		msg = ":ok_hand: {0.mention}"
+    msg = ":ok_hand: {0.mention}"
 
-		if name == None:
-			msg=msg.format(ctx.message.author)
-		else:
-			users = ctx.bot.get_all_members()
-			match = None
+    if name == None:
+      msg=msg.format(ctx.message.author)
+    else:
+      users = ctx.bot.get_all_members()
+      match = None
 
-			for user in users:
-				if user.name.lower() == name.lower():
-					match = user
-					break
-				elif not user.nick == None:
-					if user.nick.lower() == name.lower():
-						match = user
-						break
+      for user in users:
+        if user.name.lower() == name.lower():
+          match = user
+          break
+        elif not user.nick == None:
+          if user.nick.lower() == name.lower():
+            match = user
+            break
 
-			if match == None:
-				msg = f"Couldn't thank \"{name}\" because I couldn't find them :sob:"
-			else:
-				msg=msg.format(match)
+      if match == None:
+        msg = f"Couldn't thank \"{name}\" because I couldn't find them :sob:"
+      else:
+        msg=msg.format(match)
 
-		await ctx.send(msg)
+    await ctx.send(msg)
 
-	@commands.command()
-	async def look(self, ctx):
-		'''
-		Give them the looker
-		'''
+  @commands.command()
+  async def look(self, ctx):
+    '''
+    Give them the looker
+    '''
 
-		await ctx.send(":eyes:")
+    await ctx.send(":eyes:")
 
-	@commands.command()
-	async def ping(self, ctx):
-		'''
-		Ping pong!
-		'''
+  @commands.command()
+  async def ping(self, ctx):
+    '''
+    Ping pong!
+    '''
 
-		await ctx.send("Pong! {0}".format(ctx.message.author.mention))
+    await ctx.send("Pong! {0}".format(ctx.message.author.mention))
 
-	@commands.command()
-	async def daddy(self, ctx):
-		'''
-		DADDY NO
-		'''
+  @commands.command()
+  async def daddy(self, ctx):
+    '''
+    DADDY NO
+    '''
 
-		await ctx.send("<@{0}> DADDY NO".format(PHONE_ID))
+    await ctx.send("<@{0}> DADDY NO".format(PHONE_ID))
 
 def setup(bot):
-	bot.add_cog(General(bot))
+  bot.add_cog(General(bot))
