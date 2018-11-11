@@ -7,6 +7,14 @@ class Links:
     self.bot = bot
 
   @commands.command()
+  async def order(self, ctx):
+    '''
+    put glorious comrades in order
+    '''
+
+    await ctx.send("https://i.redd.it/x9triplll1v11.jpg")
+
+  @commands.command()
   async def outplayed(self, ctx):
     '''
     would be russian div 1 champ
