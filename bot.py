@@ -108,8 +108,7 @@ async def on_message(message):
 
   if message.author.bot: return
   if bot.user.mentioned_in(message) and message.content.startswith(f'<@{bot.user.id}>') and message.mention_everyone is False:
-    #await message.channel.send(f'{message.author.mention}, my prefix is "{PREFIX}"')
-                await message.channel.send(f'{message.author.mention} {pingbm}')
+    await message.channel.send(f'{message.author.mention} {pingbm}')
   elif cmd is not None:
     await process_bot_command(message, cmd, args)
   elif message.channel.id in ALLOWED_CHANNELS_ID:
