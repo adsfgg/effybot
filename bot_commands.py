@@ -20,20 +20,36 @@ async def on_cmd_channel(ctx):
       return await ctx.send("Stopped listening in this channel for commands. :sob:")
     else:
       return await ctx.send("I'm not listening in this channel :blush:")
-  elif arg == "list":
-    return await ctx.send("not in yet ;)")
+
+async def on_cmd_channels(ctx):
+  cid = ctx.channel.id
+  channels_list = []
+  
+  for channel_id in ALLOWED_CHANNELS_ID:
+    channels_list.append(channel_id)
+  
+  msg = discord.Embed(title="Channels", description=str(channel_list), color=0xFFFFFF)
+  await channel.send(embed=msg)
 
 bot_commands = [
-  {
-    "name": "channel",
-    "has_args": True,
-    "max_args": 1,
-    "min_args": 1,
-    "valid_args": [
-      "add",
-      "remove",
-      "list"
-    ],
-    "on_command": on_cmd_channel
-  }
+                
+                # Channel
+                {
+                "name": "channel",
+                "has_args": True,
+                "max_args": 1,
+                "min_args": 1,
+                "valid_args": [
+                              "start",
+                              "stop"
+                              ],
+                "on_command": on_cmd_channel
+                },
+                
+                # Channels
+                {
+                "name": "channels",
+                "has_args": False,
+                "on_command": on_cmd_channels
+                }
 ]
