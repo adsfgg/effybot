@@ -1,47 +1,14 @@
 #!/usr/bin/env python3
 print("Starting discordbot...")
 
-import logging,sys
-
-use_console_logging = True
-
-if len(sys.argv) == 2:
-  if sys.argv[1] == "--no_console":
-    use_console_logging = False
-
-logging_level = logging.DEBUG
-
-logger = logging.getLogger("Discord_Bot")
-logger.setLevel(logging_level)
-
-#log file
-fh = logging.FileHandler("log.txt")
-fh.setLevel(logging_level)
-
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
-#console log
-if use_console_logging:
-  ch = logging.StreamHandler()
-  ch.setLevel(logging_level)
-  ch.setFormatter(formatter)
-  logger.addHandler(ch)
-
-fh.setFormatter(formatter)
-
-logger.addHandler(fh)
-
-logger.info("Logging setup successfully")
-logger.info("Starting discordbot")
-
-logger.info("Loading discord.py")
 import discord
 from discord.ext import commands
-logger.info("Discord.py loaded ({0})".format(discord.__version__))
-import traceback
+import logging,sys
 
-with open("token.txt") as f:
-  TOKEN = f.readlines()[0].replace("\n", "")
+from bot_commands import *
+
+use_console_logging = True
+logging_level = logging.DEBUG
 
 ASDF_ID = "134781032086896641"
 BIG_BRAIN_ID = 421464243339001860
@@ -50,16 +17,6 @@ PREFIX = "!"
 pingbm = "What the fuck did you just @ me for, you little pinger? I’ll have you know I graduated top of my class in the @ spamming, and I’ve been involved in numerous secret raids on shitty minecraft servers, and I have over 300 confirmed @ pings. I am trained in @ warfare and I’m the top @ spammer in the entire @ spamming forces. You are nothing to me but just another person annoyed by the @ pings. I will @ you the fuck out with @ spam in the likes of which has never @'d before on this Earth, mark my fucking @ ping. You think you can get away with kick me over discord? Think again, fucker. As we speak I am activating secret network of bots and your server invite link is being traced right now so so you better prepare for about 100+ @ pings. The @ pings that wipes out the pathetic little thing you call your server. You’re fucking @'d, kiddo. I can @ you anywhere, anytime, and I can @ ping your server in over seven hundred ways, and that’s just with my bare keyboard. Not only am I extensively trained in CNTRL-C and CNTRL-V, but I have access to the entire arsenal of the entire Discord @ code and I will use it to its full extent to @ your miserable ass off the face of Discord, you little shit. If only you could have known what unholy @ pinging your little “clever” kick from the server was about to ping down upon you, maybe you would have held your fucking keyboard."
 
 initial_extensions = []
-
-logger.info("Loading initial_extensions...")
-
-with open("initial_extensions.txt") as f:
-  for line in f:
-    initial_extensions.append(line[:-1]) #strip newline
-
-logger.info("Loaded.")
-
-from bot_commands import *
 
 bot = commands.Bot(command_prefix=PREFIX)
 
@@ -155,7 +112,54 @@ async def on_ready():
   logger.info("Logged in as {0.name} ({0.id})".format(bot.user))
   await bot.change_presence(activity=discord.Game(name="0w0 what's this"))
 
+def setup_logging():
+  logger = logging.getLogger("Discord_Bot")
+  logger.setLevel(logging_level)
+  
+  #log file
+  fh = logging.FileHandler("log.txt")
+  fh.setLevel(logging_level)
+  
+  formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+  
+  #console log
+  if use_console_logging:
+    ch = logging.StreamHandler()
+    ch.setLevel(logging_level)
+    ch.setFormatter(formatter)
+    logger.addHandler(ch)
+  
+  fh.setFormatter(formatter)
+
+  logger.addHandler(fh)
+
+  logger.info("Logging setup successfully")
+
+  return logger
+
 def main():
+  global logger, use_console_logging
+  TOKEN = ""
+  
+  if len(sys.argv) == 2:
+    if sys.argv[1] == "--no_console":
+      use_console_logging = False
+  
+  logger = setup_logging()
+  
+  logger.info("Using Discord.py ({0})".format(discord.__version__))
+
+  with open("token.txt") as f:
+    TOKEN = f.readlines()[0].replace("\n", "")
+
+  logger.info("Loading initial_extensions...")
+
+  with open("initial_extensions.txt") as f:
+    for line in f:
+      initial_extensions.append(line[:-1]) #strip newline
+
+  logger.info("Loaded.")
+  
   logger.info("loading extensions")
 
   for extension in initial_extensions:
