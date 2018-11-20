@@ -166,7 +166,7 @@ def main():
 
   logger.info("Loading initial_extensions...")
 
-  with open("initial_extensions.txt") as f:
+  with open("src/initial_extensions.txt") as f:
     for line in f:
       initial_extensions.append(line[:-1]) #strip newline
 
