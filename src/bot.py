@@ -160,8 +160,7 @@ def main():
 
   creds = load_credentials()
 
-  for cred in creds:
-    TOKEN = cred["token"]
+  TOKEN = creds["token"]
 
   logger.info("Loaded credentials")
 
