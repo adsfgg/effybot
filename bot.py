@@ -3,7 +3,7 @@ print("Starting discordbot...")
 
 import discord
 from discord.ext import commands
-import logging,sys
+import logging,sys,argparse
 
 from bot_commands import *
 
@@ -15,8 +15,8 @@ BIG_BRAIN_ID = 421464243339001860
 BOT_ERRORS_ID = 482931487767920640
 PREFIX = "!"
 pingbm = "What the fuck did you just @ me for, you little pinger? I’ll have you know I graduated top of my class in the @ spamming, and I’ve been involved in numerous secret raids on shitty minecraft servers, and I have over 300 confirmed @ pings. I am trained in @ warfare and I’m the top @ spammer in the entire @ spamming forces. You are nothing to me but just another person annoyed by the @ pings. I will @ you the fuck out with @ spam in the likes of which has never @'d before on this Earth, mark my fucking @ ping. You think you can get away with kick me over discord? Think again, fucker. As we speak I am activating secret network of bots and your server invite link is being traced right now so so you better prepare for about 100+ @ pings. The @ pings that wipes out the pathetic little thing you call your server. You’re fucking @'d, kiddo. I can @ you anywhere, anytime, and I can @ ping your server in over seven hundred ways, and that’s just with my bare keyboard. Not only am I extensively trained in CNTRL-C and CNTRL-V, but I have access to the entire arsenal of the entire Discord @ code and I will use it to its full extent to @ your miserable ass off the face of Discord, you little shit. If only you could have known what unholy @ pinging your little “clever” kick from the server was about to ping down upon you, maybe you would have held your fucking keyboard."
-
 initial_extensions = []
+bot_name = ""
 
 bot = commands.Bot(command_prefix=PREFIX)
 
@@ -138,12 +138,18 @@ def setup_logging():
   return logger
 
 def main():
-  global logger, use_console_logging
+  global logger, use_console_logging, bot_name
   TOKEN = ""
   
-  if len(sys.argv) == 2:
-    if sys.argv[1] == "--no_console":
-      use_console_logging = False
+  ap = argparse.ArgumentParser()
+  ap.add_argument("-c", "--no-console", required=False, help="Disables console output")
+  ap.add_argument("-n", "--name", type=str, default="Effy", help="Name of the bot to start. Used for config loading.")
+  args = vars(ap.parse_args())
+
+  if args["no_console"]:
+    use_console_logging = False
+  elif args["name"]:
+    bot_name = args["name"]
   
   logger = setup_logging()
   
