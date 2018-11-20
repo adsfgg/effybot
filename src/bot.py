@@ -10,7 +10,7 @@ from bot_commands import *
 use_console_logging = True
 logging_level = logging.DEBUG
 
-ASDF_ID = "134781032086896641"
+OWNER_ID = ""
 BIG_BRAIN_ID = 421464243339001860
 BOT_ERRORS_ID = 482931487767920640
 PREFIX = "!"
@@ -38,7 +38,7 @@ async def on_command_error(ctx, error):
   msg = discord.Embed(title="Command Error", description=str(type(error)), color=0xFF0000)
   msg.add_field(name="Command", value=ctx.message.content, inline=False)
   msg.add_field(name="Error", value=error, inline=False)
-  await channel.send(content=f"<@{ASDF_ID}>", embed=msg)
+  await channel.send(content=f"<@{OWNER_ID}>", embed=msg)
   logger.debug(error)
 
 @bot.event
@@ -136,15 +136,14 @@ def setup_logging():
 
   return logger
 
-def load_credentials():
-  creds = []
-  with open("configs/credentials.json") as f:
-    creds = json.load(f)
-  print(creds)
-  return creds
+def load_bot_settings():
+  settings = []
+  with open("configs/bot.json") as f:
+    settings = json.load(f)
+  return settings
 
 def main():
-  global logger, use_console_logging
+  global logger, use_console_loggin, PREFIX, OWNER_ID
   TOKEN = ""
   
   ap = argparse.ArgumentParser()
@@ -158,9 +157,13 @@ def main():
 
   logger.info("Using Discord.py ({0})".format(discord.__version__))
 
-  creds = load_credentials()
+  settings = load_bot_settings()
 
-  TOKEN = creds["token"]
+  bot_name = settings["name"]
+  TOKEN = settings["token"]
+  OWNER_ID = settings["token"]
+  PREFIX = settings["prefix"]
+
 
   logger.info("Loaded credentials")
 
