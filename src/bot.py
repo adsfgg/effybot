@@ -141,13 +141,22 @@ async def process_bot_command(message, command, args):
 
     if command["has_args"]:
       argc = len(ctx.args)
-      min_args = command["min_args"]
-      max_args = command["max_args"]
+      
+      try:
+        num_args = command["num_args"]
+        if argc != num_args:
+          return await ctx.send("Incorrect number of arguments. Needs {0} argument{1}".format(num_args, "s" if num_args > 1 else ""))
+      except KeyError as e:
+        try:
+          min_args = command["min_args"]
+          max_args = command["max_args"]
 
-      if argc < min_args:
-        return await ctx.send("Not enough arguments. Needs at least {0} argument{1}".format(min_args, "s" if min_args > 1 else ""))
-      elif argc > max_args:
-        return await ctx.send("Too many arguments. Needs at most {0} argument{1}".format(max_args, "s" if max_args > 1 else ""))
+          if argc < min_args:
+            return await ctx.send("Not enough arguments. Needs at least {0} argument{1}".format(min_args, "s" if min_args > 1 else ""))
+          elif argc > max_args:
+            return await ctx.send("Too many arguments. Needs at most {0} argument{1}".format(max_args, "s" if max_args > 1 else ""))
+        except KeyError as e:
+          return logger.error("Command \"{0}\" not defined correctly. has_args is true, but no arg limit is defined.".format(command["name"]))
 
       valid_args = command["valid_args"]
 

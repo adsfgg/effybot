@@ -37,8 +37,7 @@ bot_commands = [
                 {
                 "name": "channel",
                 "has_args": True,
-                "max_args": 1,
-                "min_args": 1,
+                "num_args": 1,
                 "valid_args": [
                               "start",
                               "stop"
