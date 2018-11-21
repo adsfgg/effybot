@@ -8,13 +8,13 @@ async def on_cmd_channel(ctx):
   arg = ctx.args[0] #there should only be one argument for this cmd
   cid = ctx.channel.id
 
-  if arg == "add":
+  if arg == "start":
     if not cid in ALLOWED_CHANNELS_ID:
       ALLOWED_CHANNELS_ID.append(cid)
       return await ctx.send("Now listening in this channel for commands. :blush:")
     else:
       return await ctx.send("I'm already listening in this channel :wink:")
-  elif arg == "remove":
+  elif arg == "stop":
     if cid in ALLOWED_CHANNELS_ID:
       ALLOWED_CHANNELS_ID.remove(cid)
       return await ctx.send("Stopped listening in this channel for commands. :sob:")
