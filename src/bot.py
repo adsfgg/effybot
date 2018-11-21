@@ -34,9 +34,9 @@ logger.info("Logging setup successfully")
 
 OWNER_ID = ""
 BIG_BRAIN_ID = 421464243339001860
-BOT_ERRORS_ID = 482931487767920640
+BOT_ERRORS_ID = 0
 PREFIX = ""
-pingbm = "What the fuck did you just @ me for, you little pinger? I’ll have you know I graduated top of my class in the @ spamming, and I’ve been involved in numerous secret raids on shitty minecraft servers, and I have over 300 confirmed @ pings. I am trained in @ warfare and I’m the top @ spammer in the entire @ spamming forces. You are nothing to me but just another person annoyed by the @ pings. I will @ you the fuck out with @ spam in the likes of which has never @'d before on this Earth, mark my fucking @ ping. You think you can get away with kick me over discord? Think again, fucker. As we speak I am activating secret network of bots and your server invite link is being traced right now so so you better prepare for about 100+ @ pings. The @ pings that wipes out the pathetic little thing you call your server. You’re fucking @'d, kiddo. I can @ you anywhere, anytime, and I can @ ping your server in over seven hundred ways, and that’s just with my bare keyboard. Not only am I extensively trained in CNTRL-C and CNTRL-V, but I have access to the entire arsenal of the entire Discord @ code and I will use it to its full extent to @ your miserable ass off the face of Discord, you little shit. If only you could have known what unholy @ pinging your little “clever” kick from the server was about to ping down upon you, maybe you would have held your fucking keyboard."
+ping_response = ""
 initial_extensions = []
 
 TOKEN = ""
@@ -65,6 +65,8 @@ OWNER_ID = creds["owner_id"]
 logger.info("Loaded credentials")
 
 PREFIX = settings["prefix"]
+BOT_ERRORS_ID = settings["bot_errors_channel_id"]
+ping_response = settings["ping_response"]
 
 logger.info("Loaded settings")
 
@@ -116,8 +118,8 @@ async def on_message(message):
   cmd, args = get_command(message)
 
   if message.author.bot: return
-  if bot.user.mentioned_in(message) and message.content.startswith(f'<@{bot.user.id}>') and message.mention_everyone is False:
-    await message.channel.send(f'{message.author.mention} {pingbm}')
+  if bot.user.mentioned_in(message) and (message.content.startswith(f'<@{bot.user.id}>') or message.content.startswith(f'<@!{bot.user.id}>')) and message.mention_everyone is False:
+    await message.channel.send(f'{message.author.mention} {ping_response}')
   elif cmd is not None:
     await process_bot_command(message, cmd, args)
   elif message.channel.id in ALLOWED_CHANNELS_ID:
