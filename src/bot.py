@@ -5,7 +5,62 @@ import discord
 from discord.ext import commands
 import logging,sys,argparse,json
 
-from bot_commands import *
+# custom commands
+ALLOWED_CHANNELS_ID = []
+
+#TODO: Make this use embeds
+#TODO: Make bot remember channels between restarts
+
+async def on_cmd_channel(ctx):
+  arg = ctx.args[0] #there should only be one argument for this cmd
+  cid = ctx.channel.id
+  
+  if arg == "start":
+    if not cid in ALLOWED_CHANNELS_ID:
+      ALLOWED_CHANNELS_ID.append(cid)
+      return await ctx.send("Now listening in this channel for commands. :blush:")
+    else:
+      return await ctx.send("I'm already listening in this channel :wink:")
+  elif arg == "stop":
+    if cid in ALLOWED_CHANNELS_ID:
+      ALLOWED_CHANNELS_ID.remove(cid)
+      return await ctx.send("Stopped listening in this channel for commands. :sob:")
+    else:
+      return await ctx.send("I'm not listening in this channel :blush:")
+
+async def on_cmd_channels(ctx):
+  cid = ctx.channel.id
+  channels_list = []
+  
+  for channel_id in ALLOWED_CHANNELS_ID:
+    channels_list.append(channel_id)
+  
+  msg = discord.Embed(title="Channels", description=str(channel_list), color=0xFFFFFF)
+  await channel.send(embed=msg)
+
+bot_commands = [
+                
+                # Channel
+                {
+                "name": "channel",
+                "has_args": True,
+                "num_args": 1,
+                "valid_args": [
+                               "start",
+                               "stop"
+                               ],
+                "on_command": on_cmd_channel
+                },
+                
+                # Channels
+                {
+                "name": "channels",
+                "has_args": False,
+                "on_command": on_cmd_channels
+                }
+                ]
+
+# bot setup
 
 use_console_logging = True
 logging_level = logging.DEBUG
@@ -38,6 +93,7 @@ BOT_ERRORS_ID = 0
 PREFIX = ""
 ping_response = ""
 initial_extensions = []
+modules = []
 
 TOKEN = ""
 
@@ -50,13 +106,11 @@ if args["no_console"]:
 
 logger.info("Using Discord.py ({0})".format(discord.__version__))
 
+logger.info("Loading credentials...")
+
 creds = []
 with open("configs/bot.json") as f:
   creds = json.load(f)
-
-settings = []
-with open("configs/settings.json") as f:
-  settings = json.load(f)
 
 bot_name = creds["name"]
 TOKEN = creds["token"]
@@ -64,9 +118,17 @@ OWNER_ID = creds["owner_id"]
 
 logger.info("Loaded credentials")
 
+logger.info("Loading settings...")
+
+settings = []
+with open("configs/settings.json") as f:
+  settings = json.load(f)
+
 PREFIX = settings["prefix"]
 BOT_ERRORS_ID = settings["bot_errors_channel_id"]
 ping_response = settings["ping_response"]
+ALLOWED_CHANNELS_ID = settings["allowed_channels"]
+modules = settings["modules"]
 
 logger.info("Loaded settings")
 
@@ -176,22 +238,17 @@ async def on_ready():
   await bot.change_presence(activity=discord.Game(name="0w0 what's this"))
 
 def main():
-  logger.info("Loading initial_extensions...")
+  logger.info("Loading initial modules")
   
-  with open("src/initial_extensions.txt") as f:
-    for line in f:
-      initial_extensions.append(line[:-1]) #strip newline
-  
-    logger.info("Loaded.")
-    
-  logger.info("loading extensions")
-  
-  for extension in initial_extensions:
+  for module in modules:
     try:
-      bot.load_extension(extension)
-      logger.info(f'Loaded extension {extension}.')
+      if module["enabled"]:
+        bot.load_extension(module["filepath"])
+        logger.info(f'Loaded module {module["name"]}.')
+      else:
+        logger.info(f'Skipping loading module: {module["name"]}')
     except ModuleNotFoundError as e:
-      logger.warning(f'Failed to load extension {extension}.')
+      logger.warning(f'Failed to load module {module["name"]}.')
       logger.debug(e)
 
   logger.info("Starting bot")

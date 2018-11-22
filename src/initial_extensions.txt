@@ -1,7 +1,0 @@
-cogs.owner
-cogs.general
-cogs.games
-cogs.tts
-cogs.picturelists
-cogs.copypasta
-cogs.links
