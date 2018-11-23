@@ -33,10 +33,10 @@ async def on_cmd_channels(ctx):
   channels_list = []
   
   for channel_id in ALLOWED_CHANNELS_ID:
-    channels_list.append(channel_id)
+    channels_list.append(ctx.guild.get_channel(channel_id).name)
   
-  msg = discord.Embed(title="Channels", description=str(channel_list), color=0xFFFFFF)
-  await channel.send(embed=msg)
+  msg = discord.Embed(title="Channels", description=str(channels_list), color=0xFFFFFF)
+  await ctx.send(embed=msg)
 
 bot_commands = [
                 
