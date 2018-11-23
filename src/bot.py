@@ -3,7 +3,7 @@ print("Starting discordbot...")
 
 import discord
 from discord.ext import commands
-import logging,sys,argparse,json
+import logging,sys,json
 
 # custom commands
 ALLOWED_CHANNELS_ID = []
@@ -65,6 +65,9 @@ bot_commands = [
 use_console_logging = True
 logging_level = logging.DEBUG
 
+if len(sys.argv) == 2 and sys.argv[1] == "--no-console":
+  use_console_logging = False
+
 logger = logging.getLogger("Discord_Bot")
 logger.setLevel(logging_level)
 
@@ -96,13 +99,6 @@ initial_extensions = []
 modules = []
 
 TOKEN = ""
-
-ap = argparse.ArgumentParser()
-ap.add_argument("-c", "--no-console", required=False, help="Disables console output")
-args = vars(ap.parse_args())
-
-if args["no_console"]:
-  use_console_logging = False
 
 logger.info("Using Discord.py ({0})".format(discord.__version__))
 
