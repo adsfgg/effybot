@@ -8,9 +8,9 @@ class TTS:
   
   @commands.command()
   async def frick(self, ctx):
-      '''
-      FRICK
-      '''
+    '''
+    FRICK
+    '''
     
     await ctx.send("frick frick frick frick frick frick frick frick frick frick frick frick frick frick", tts=True)
 
