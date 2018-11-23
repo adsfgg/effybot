@@ -49,14 +49,16 @@ bot_commands = [
                                "start",
                                "stop"
                                ],
-                "on_command": on_cmd_channel
+                "on_command": on_cmd_channel,
+                "owner_only": True
                 },
                 
                 # Channels
                 {
                 "name": "channels",
                 "has_args": False,
-                "on_command": on_cmd_channels
+                "on_command": on_cmd_channels,
+                "owner_only": True
                 }
                 ]
 
@@ -90,7 +92,7 @@ logger.addHandler(fh)
 
 logger.info("Logging setup successfully")
 
-OWNER_ID = ""
+OWNER_ID = 0
 BIG_BRAIN_ID = 421464243339001860
 BOT_ERRORS_ID = 0
 PREFIX = ""
@@ -195,6 +197,10 @@ def get_command(message):
 
 async def process_bot_command(message, command, args):
   if command is not None:
+    if command["owner_only"]:
+      if message.author.id != OWNER_ID:
+        msg = discord.Embed(title=":x:", description="You do not have permission to run this command.", color=0xFF0000)
+        return await message.channel.send(embed=msg)
     ctx = await bot.get_context(message)
     ctx.command = command
     ctx.args = args
