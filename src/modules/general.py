@@ -17,14 +17,6 @@ class General:
     self.bot = bot
 
   @commands.command()
-  async def days(self, ctx):
-    '''
-    summon der Mann
-    '''
-
-    await ctx.send("It's day and <@{0}>!".format(NIGHTS_ID))
-
-  @commands.command()
   async def emo(self, ctx):
     '''
     im dead inside
