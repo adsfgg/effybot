@@ -182,7 +182,10 @@ async def process_bot_command(message, command, args):
 @bot.event
 async def on_ready():
   logger.info("Logged in as {0.name} ({0.id})".format(bot.user))
-  await bot.change_presence(activity=discord.Game(name="0w0 what's this"))
+  presence = settings["presence"]
+  if presence != "":
+    await bot.change_presence(activity=discord.Game(name=presence))
+    logger.info("Changing presence to: " + presence)
 
 def main():
   logger.info("Loading initial modules")
