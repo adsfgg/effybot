@@ -11,6 +11,7 @@ from custom_commands import *
 
 use_console_logging = True
 logging_level = logging.DEBUG
+BIG_BRAIN_ID = 421464243339001860
 
 if len(sys.argv) == 2 and sys.argv[1] == "--no-console":
   use_console_logging = False
@@ -36,16 +37,6 @@ fh.setFormatter(formatter)
 logger.addHandler(fh)
 
 logger.info("Logging setup successfully")
-
-OWNER_ID = 0
-BIG_BRAIN_ID = 421464243339001860
-BOT_ERRORS_ID = 0
-PREFIX = ""
-ping_response = ""
-initial_extensions = []
-modules = []
-
-TOKEN = ""
 
 logger.info("Using Discord.py ({0})".format(discord.__version__))
 
