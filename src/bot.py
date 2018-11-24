@@ -11,7 +11,7 @@ from custom_commands import *
 
 use_console_logging = True
 logging_level = logging.DEBUG
-BIG_BRAIN_ID = 421464243339001860
+BIG_BRAIN_ID = 421464243339001860
 
 if len(sys.argv) == 2 and sys.argv[1] == "--no-console":
   use_console_logging = False

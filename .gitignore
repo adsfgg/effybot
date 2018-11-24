@@ -1,4 +1,5 @@
-configs/*
+configs/bot.json
+configs/settings.json
 __pycache__/
 cogs/__pycache__/
 log.txt
