@@ -1,0 +1,26 @@
+{
+  "prefix": ".",
+  "bot_errors_channel_id":1234567890,
+  "ping_response":"{pinguser} Hello! My prefix is {prefix}",
+  "allowed_channels":[
+    1234567890
+  ],
+  "presence": "Prefix: {prefix}",
+  "modules":[
+    {
+      "name":"games",
+      "filepath":"modules.games",
+      "enabled": true
+    },
+    {
+      "name":"general",
+      "filepath":"modules.general",
+      "enabled": true
+    },
+    {
+      "name":"owner",
+      "filepath":"modules.owner",
+      "enabled": true
+    }
+  ]
+}

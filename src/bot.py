@@ -66,6 +66,14 @@ modules = settings["modules"]
 
 logger.info("Loaded settings")
 
+def format_setting_string(str, user=None):
+  if user:
+    pinguser = user.mention
+    str = str.replace("{pinguser}", pinguser)
+
+  str = str.replace("{prefix}", PREFIX)
+  return str
+
 bot = commands.Bot(command_prefix=PREFIX)
 
 # bot event handling
@@ -115,7 +123,7 @@ async def on_message(message):
 
   if message.author.bot: return
   if bot.user.mentioned_in(message) and (message.content.startswith(f'<@{bot.user.id}>') or message.content.startswith(f'<@!{bot.user.id}>')) and message.mention_everyone is False:
-    await message.channel.send(f'{message.author.mention} {ping_response}')
+    await message.channel.send(f'{message.author.mention} {format_setting_string(ping_response)}')
   elif cmd is not None:
     await process_bot_command(message, cmd, args)
   elif message.channel.id in get_allowed_channels():
@@ -173,7 +181,7 @@ async def process_bot_command(message, command, args):
 @bot.event
 async def on_ready():
   logger.info("Logged in as {0.name} ({0.id})".format(bot.user))
-  presence = settings["presence"]
+  presence = format_setting_string(settings["presence"])
   if presence != "":
     await bot.change_presence(activity=discord.Game(name=presence))
     logger.info("Changing presence to: " + presence)
