@@ -3,6 +3,7 @@ from discord.ext import commands
 
 PHONE_ID = "150009549196099584"
 KMAC_ID = "206283655159480320"
+BOOWER_ID = "152526530239660034"
 NIGHTS_ID = "153153882355138560"
 ASDF_ID = "134781032086896641"
 big_think_limit = 3
@@ -15,6 +16,14 @@ class General:
 
   def __init__(self, bot):
     self.bot = bot
+
+  @commands.command(hidden=True)
+  async def bigbrains(self, ctx):
+    '''
+    the brain chamber
+    '''
+    
+    await ctx.send("BIG BRAINS ONLY <@{0}> <@{1}> <@{2}> <@{3}>".format(KMAC_ID, BOOWER_ID, ASDF_ID, PHONE_ID))
 
   @commands.command()
   async def emo(self, ctx):
