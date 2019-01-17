@@ -108,14 +108,14 @@ async def on_voice_state_update(member, before, after):
     await remove_from_text(member)
 
 async def remove_from_text(user):
-  channel = discord.utils.get(user.guild.channels, name="big-text")
+  role = discord.utils.get(user.guild.roles, name="big brain text")
 
-  await channel.set_permissions(user, read_messages=False)
+  await user.remove_roles(role)
 
 async def add_to_text(user):
-  channel = discord.utils.get(user.guild.channels, name="big-text") 
+  role = discord.utils.get(user.guild.roles, name="big brain text")
 
-  await channel.set_permissions(user, read_messages=True)
+  await user.add_roles(role)
 
 @bot.event
 async def on_message(message):
