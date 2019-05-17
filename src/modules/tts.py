@@ -1,17 +1,17 @@
 import discord
 from discord.ext import commands
 
-class TTS:
+class TTS(commands.Cog):
 
   def __init__(self, bot):
     self.bot = bot
-  
+
   @commands.command()
   async def frick(self, ctx):
     '''
     FRICK
     '''
-    
+
     await ctx.send("frick frick frick frick frick frick frick frick frick frick frick frick frick frick", tts=True)
 
   @commands.command()

@@ -2,17 +2,17 @@ import subprocess, sys, discord
 from discord.ext import commands
 import logging, json
 
-class Owner:
-  
+class Owner(commands.Cog):
+
   def __init__(self, bot):
     self.bot = bot
     self.logger = logging.getLogger('Discord_Bot.Owner')
 
     self.logger.info("Loading modules...")
-    
+
     with open("configs/settings.json") as f:
       settings = json.load(f)
-    
+
     self.modules = settings["modules"]
 
     self.logger.info("Loaded.")
@@ -101,11 +101,11 @@ class Owner:
     '''
     Soft resets the bot
     '''
-    
+
     self.logger.info("Resetting the bot...")
     unloaded = 0
     loaded = 0
-    
+
     for module in self.modules:
       try:
         self.bot.unload_extension(module["filepath"])
@@ -128,10 +128,10 @@ class Owner:
   @commands.is_owner()
   async def latency(self, ctx):
     '''
-    Gets the latency of the bot. 
+    Gets the latency of the bot.
     '''
 
-    msg = self.bot.latency 
+    msg = self.bot.latency
 
     await ctx.send(msg)
 

@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class Links:
+class Links(commands.Cog):
 
   def __init__(self, bot):
     self.bot = bot
@@ -29,7 +29,7 @@ class Links:
     '''
 
     await ctx.send("https://cdn.discordapp.com/attachments/482716342244605952/494917661222764568/7k3l287nbqo11.png")
-  
+
   @commands.command()
   async def star2(self, ctx):
     '''
@@ -43,7 +43,7 @@ class Links:
     '''
     BUILD THE WALL
     '''
-    
+
     await ctx.send("https://cdn.discordapp.com/attachments/463778061469351946/494876366861369354/JYgRGsOZNPUHLd6PEUUzL8WGULVESH4gd4kAfgjLXtM.png")
 
   @commands.command()
@@ -51,7 +51,7 @@ class Links:
     '''
     STRONG AND STABLE
     '''
-    await ctx.send("https://cdn.discordapp.com/attachments/421464243339001858/494543569340858368/q6att06f0fo11.png")  
+    await ctx.send("https://cdn.discordapp.com/attachments/421464243339001858/494543569340858368/q6att06f0fo11.png")
 
   @commands.command()
   async def phone(self, ctx):
@@ -68,7 +68,7 @@ class Links:
     '''
 
     await ctx.send("https://clips.twitch.tv/BraveLongWrenTBCheesePull")
-    
+
   @commands.command()
   async def kappa(self, ctx):
     '''

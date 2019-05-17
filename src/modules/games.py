@@ -1,7 +1,7 @@
 import discord, random
 from discord.ext import commands
 
-class Games:
+class Games(commands.Cog):
 
   ball_answers = []
 
@@ -14,13 +14,13 @@ class Games:
       self.ball_answers.append(line)
 
     ball_file.close()
-    
+
   @commands.command(pass_context=True, name="8ball")
   async def eightball(self, ctx, *, question:str):
     '''
     You can use 8ball to answer a question.
     '''
-   
+
     num = random.randint(0, len(self.ball_answers) - 1)
 
     answer = self.ball_answers[num]

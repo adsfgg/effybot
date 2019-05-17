@@ -9,7 +9,7 @@ ASDF_ID = "134781032086896641"
 big_think_limit = 3
 big_springu_limit = 3
 
-class General:
+class General(commands.Cog):
 
   thinking_lines = []
   springu_lines = []
@@ -22,7 +22,7 @@ class General:
     '''
     the brain chamber
     '''
-    
+
     await ctx.send("BIG BRAINS ONLY <@{0}> <@{1}> <@{2}> <@{3}>".format(KMAC_ID, BOOWER_ID, ASDF_ID, PHONE_ID))
 
   @commands.command()
